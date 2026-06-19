@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: msi-api
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_FILE
+        value: database/msi.sqlite
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 1d
+    disk:
+      name: msi-api-data
+      mountPath: /opt/render/project/src/database
+      sizeGB: 1
